@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <sys/mount.h>
 #include "flop.h"
 
 void help(void)
@@ -14,14 +15,27 @@ void help(void)
     printf("    showfat             - show the content of the FAT table.\n");
 }
 
-void fmount(char *file)
+void fmount(const char *file)
 {
-    printf("fmount\n");
+    const char *target = "/media/floppy/";
+    const char *filesystem = "msdos";
+    unsigned long flags = MS_RDONLY;
+    const void *data = ""; 
+    if (mount(file, target, filesystem, flags, data) == -1) {
+        printf("Error: unable to mount %s\n", file);
+    } else {
+        printf("%s mounted at %s\n", file, target);
+    }
 }
 
-void fumount(char *file)
+void fumount(const char *file)
 {
-    printf("fumount\n");
+    const char *target = "/media/floppy/";
+    if (umount(*target) == -1) {
+        printf("Error: unable to unmount %s\n", file);
+    } else {
+        printf("unmounted %s\n", file);
+    }
 }
 
 void structure(void)

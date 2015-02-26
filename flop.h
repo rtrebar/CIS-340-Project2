@@ -2,8 +2,8 @@
 #define __FLOP_H__
 
 void help(void);
-void fmount(char *);
-void fumount(char *);
+void fmount(const char *);
+void fumount(const char *);
 void structure(void);
 void traverse(char);
 void show_sector(int);
