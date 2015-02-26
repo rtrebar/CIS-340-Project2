@@ -5,6 +5,17 @@
 
 int main(void)
 {
+    const char *img = "imagefile.img";
+    //help();
+    fmount(img);
+    //structure();
+    //traverse('s');
+    //traverse('l');
+    //show_sector(4);
+    //show_fat();
+    fumount(img);
+
+    /*
     char cmd[20];
 
     while (1) {
@@ -34,4 +45,6 @@ int main(void)
             printf("Error: invalid command");
         }
     }
+    */
+    return 0;
 }
