@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stddef.h>
 #include <sys/mount.h>
 #include "flop.h"
 
@@ -9,7 +10,7 @@ void help(void)
     printf("    fmount [file]       - mount the specified image file\n");
     printf("    fumount [file]      - unmount the specified image file\n");
     printf("    structure           - list the structure of the floppy disk image.\n");
-    printf("    traverse (-l)       - list the contents in the root directory. Optional -l flag\n");
+    printf("    traverse [-l]       - list the contents in the root directory. Optional -l flag\n");
     printf("                          gives a long listing of the root directory.\n");
     printf("    showsector [sector] - show the content of the given sector.\n");
     printf("    showfat             - show the content of the FAT table.\n");
@@ -20,7 +21,7 @@ void fmount(const char *file)
     const char *target = "/media/floppy/";
     const char *filesystem = "msdos";
     unsigned long flags = MS_RDONLY;
-    const void *data = ""; 
+    const void *data = NULL; 
     if (mount(file, target, filesystem, flags, data) == -1) {
         printf("Error: unable to mount %s\n", file);
     } else {
@@ -31,7 +32,7 @@ void fmount(const char *file)
 void fumount(const char *file)
 {
     const char *target = "/media/floppy/";
-    if (umount(*target) == -1) {
+    if (umount(target) == -1) {
         printf("Error: unable to unmount %s\n", file);
     } else {
         printf("unmounted %s\n", file);
@@ -45,10 +46,10 @@ void structure(void)
 
 void traverse(char flag)
 {
-    if (flag == 's') {
-        printf("traverse short\n");
-    } else if (flag == 'l') {
+    if (flag == 'l') {
         printf("traverse long\n");
+    } else {
+        printf("traverse short\n");
     }
 }
 
