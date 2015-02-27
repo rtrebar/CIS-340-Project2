@@ -37,6 +37,6 @@ int main(void)
             printf("Error: invalid command\n");
         }
     }
-    
+
     return 0;
 }

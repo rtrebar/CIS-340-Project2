@@ -46,10 +46,16 @@ void structure(void)
 
 void traverse(char flag)
 {
-    if (flag == 'l') {
-        printf("traverse long\n");
-    } else {
-        printf("traverse short\n");
+    if (flag == 'l') { //long traverse
+        printf("        *****************************\n");
+        printf("        ** FILE ATTRIBUTE NOTATION **\n");
+        printf("        **                         **\n");
+        printf("        ** R ------ READ ONLY FILE **\n");
+        printf("        ** S ------ SYSTEM FILE    **\n");
+        printf("        ** H ------ HIDDEN FILE    **\n");
+        printf("        ** A ------ ARCHIVE FILE   **\n");
+        printf("        *****************************\n\n");
+    } else { //short traverse
     }
 }
 
