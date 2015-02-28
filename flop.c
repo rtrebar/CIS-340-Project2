@@ -1,50 +1,49 @@
 #include <stdio.h>
-#include <stddef.h>
-#include <sys/mount.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
 #include "flop.h"
 
 void help(void)
 {
     printf("The available commands are:\n");
-    printf("    help                - display a list of available commands.\n");
-    printf("    fmount [file]       - mount the specified image file\n");
-    printf("    fumount [file]      - unmount the specified image file\n");
-    printf("    structure           - list the structure of the floppy disk image.\n");
-    printf("    traverse [-l]       - list the contents in the root directory. Optional -l flag\n");
-    printf("                          gives a long listing of the root directory.\n");
-    printf("    showsector [sector] - show the content of the given sector.\n");
-    printf("    showfat             - show the content of the FAT table.\n");
+    printf("    help                  - display a list of available commands.\n");
+    printf("    fmount file_name      - mount the specified image file\n");
+    printf("    fumount file_name     - unmount the specified image file\n");
+    printf("    structure             - list the structure of the floppy disk image.\n");
+    printf("    traverse [-l]         - list the contents in the root directory. Optional -l flag\n");
+    printf("                            gives a long listing of the root directory.\n");
+    printf("    showsector sector_num - show the content of the given sector.\n");
+    printf("    showfat               - show the content of the FAT table.\n");
 }
 
-void fmount(const char *file)
+int fmount(char *file)
 {
-    const char *target = "/media/floppy/";
-    const char *filesystem = "msdos";
-    unsigned long flags = MS_RDONLY;
-    const void *data = NULL; 
-    if (mount(file, target, filesystem, flags, data) == -1) {
-        printf("Error: unable to mount %s\n", file);
+    int fd = open((const char *)file, O_RDONLY);
+    if (fd == -1) {
+        printf("Error: unable to mount\n");
     } else {
-        printf("%s mounted at %s\n", file, target);
+        printf("mount successful\n");
+    }
+    return fd;
+}
+
+void fumount(int fd)
+{
+    if (close(fd) == -1) {
+        printf("Error: unable to unmount\n");
+    } else {
+        printf("unmounted\n");
     }
 }
 
-void fumount(const char *file)
-{
-    const char *target = "/media/floppy/";
-    if (umount(target) == -1) {
-        printf("Error: unable to unmount %s\n", file);
-    } else {
-        printf("unmounted %s\n", file);
-    }
-}
-
-void structure(void)
+void structure(int fd)
 {
     printf("structure\n");
 }
 
-void traverse(char flag)
+void traverse(int fd, char flag)
 {
     if (flag == 'l') { //long traverse
         printf("        *****************************\n");
@@ -59,12 +58,12 @@ void traverse(char flag)
     }
 }
 
-void show_sector(int sector)
+void show_sector(int fd, int sector)
 {
     printf("show sector %d\n", sector);
 }
 
-void show_fat(void)
+void show_fat(int fd)
 {
     printf("show fat\n");
 }
