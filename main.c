@@ -28,7 +28,7 @@ int main(void)
             flag[1] = ' '; //clear flag
         } else if (strcmp(cmd, "showsector") == 0) {
             sscanf(input, "%s %d", cmd, &sector);
-            show_sector(fd, sector);
+            show_sector(sector);
         } else if (strcmp(cmd, "showfat") == 0) {
             show_fat(fd);
         } else if (strcmp(cmd, "quit") == 0) {
