@@ -21,7 +21,7 @@ void help(void)
 
 void fmount(const char* filename)
 {
-    if ((fd = open(floppy, O_RDONLY)) >= 0) {
+    if ((fd = open(filename, O_RDONLY)) >= 0) {
 		printf("%s has been mounted. \n", filename);
 	}
 	else {
