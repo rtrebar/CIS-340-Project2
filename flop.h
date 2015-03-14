@@ -12,7 +12,7 @@ int fmount(char *);
 void fumount(int);
 void structure(int);
 void traverse(int, char);
-void show_sector(int, int);
+void show_sector(int);
 void show_fat(int);
 
 #endif
