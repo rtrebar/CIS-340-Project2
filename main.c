@@ -1,3 +1,4 @@
+#include <errno.h>
 #include <fcntl.h>
 #include <string.h>
 #include <stdlib.h>
@@ -7,11 +8,6 @@
 #include <unistd.h>
 #include "flop.h"
 
-
-#define str(x) #x
-
-enum Command { fmount, fumount, structure, traverse, showsector, showfat, quit, help };
-
 int main(void)
 {
     
@@ -19,27 +15,27 @@ int main(void)
         printf("flop: ");
         char cmd[50];
 	char argument[50];
-		
+
 	scanf("%s", cmd);
-	if (strcmp(str(quit), cmd) == 0) {
-		printf("Exiting the floppy disk shell...");
+	if (strcmp("quit", cmd) == 0) {
+		printf("\n Exiting the floppy disk shell...");
 		return EXIT_SUCCESS;
-	} else if (strcmp(str(help), cmd) == 0) {
-            help(); 
-        } else if (strcmp(str(fmount), cmd) == 0) {
+	} else if (strcmp("help", cmd) == 0) {
+			help();
+        } else if (strcmp("fmount", cmd) == 0) {
             scanf("%s", argument);
             fmount(argument);
-        } else if (strcmp(str(fumount), cmd) == 0) {
+        } else if (strcmp("fumount", cmd) == 0) {
             fumount(fd);
-        } else if (strcmp(str(structure), cmd) == 0) {
+        } else if (strcmp("structure", cmd) == 0) {
             structure();
-        } else if (strcmp(str(traverse), cmd) == 0) {
+        } else if (strcmp("traverse", cmd) == 0) {
             scanf("%s", argument);
             traverse(argument);
-        } else if (strcmp(str(showsector), cmd) == 0) {
+        } else if (strcmp("showsector", cmd) == 0) {
             scanf("%s", argument);
             show_sector(atoi(argument));
-        } else if (strcmp(str(showfat), cmd) == 0) {
+        } else if (strcmp("showfat", cmd) == 0) {
             show_fat();
         } else {
             printf("Error: invalid command\n");
