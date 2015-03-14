@@ -19,24 +19,24 @@ void help(void)
     printf("\t quit \t - quit the floppy shell \n");
 }
 
-int fmount(char *file)
+void fmount(const char* filename)
 {
-    int fd = open((const char *)file, O_RDONLY);
-    if (fd == -1) {
-        printf("Error: unable to mount\n");
-    } else {
-        printf("mount successful\n");
-    }
-    return fd;
+    if ((fd = open(floppy, O_RDONLY)) >= 0) {
+		printf("%s has been mounted. \n", filename);
+	}
+	else {
+		printf("The floppy disk was not mounted, check location and filename and try again.");
+	}
 }
 
-void fumount(int fd)
+void fumount()
 {
-    if (close(fd) == -1) {
-        printf("Error: unable to unmount\n");
-    } else {
-        printf("unmounted\n");
-    }
+	if ((close(fd)) < 0) {
+		printf("There was an error un-mounting the floppy disk\n");
+	}
+	else {
+		printf("The floppy was unmounted successfully.\n");
+	}
 }
 
 void structure(int fd)
@@ -44,7 +44,7 @@ void structure(int fd)
     printf("structure\n");
 }
 
-void traverse(int fd, char flag)
+void traverse(char flag)
 {
     if (flag == 'l') { //long traverse
         printf("        *****************************\n");
@@ -75,7 +75,7 @@ void show_sector(int sec){
 	}
 }
 
-void show_fat(int fd)
+void show_fat()
 {
     unsigned short low, high;
 	char buf[32];
