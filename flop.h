@@ -1,7 +1,7 @@
 #ifndef __FLOP_H__
 #define __FLOP_H__
 
-int fd, sector;
+int fd;
 unsigned short bytes_per_sector;
 unsigned short num_of_sectors;
 unsigned short fatbytes;
@@ -10,10 +10,10 @@ char *fat_buffer;
 
 void help(void);
 int fmount(char *);
-void fumount(int);
-void structure(int);
-void traverse(int, char);
-void show_sector(int);
-void show_fat(int);
+void fumount();
+void structure();
+void traverse(char);
+void show_sector();
+void show_fat();
 
 #endif
