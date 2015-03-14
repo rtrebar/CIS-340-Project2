@@ -18,7 +18,7 @@ int main(void)
 
 	scanf("%s", cmd);
 	if (strcmp("quit", cmd) == 0) {
-		printf("\n Exiting the floppy disk shell...");
+		printf("\n Exiting the floppy disk shell... \n");
 		return EXIT_SUCCESS;
 	} else if (strcmp("help", cmd) == 0) {
 			help();
