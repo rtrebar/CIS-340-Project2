@@ -9,7 +9,6 @@ enum Command { fmount, fumount, structure, traverse, showsector, showfat, quit, 
 int main(void)
 {
     char input[100], img[50], cmd[20], flag[2];
-    int fd, sector;
 
     while (1) {
         printf("flop: ");
