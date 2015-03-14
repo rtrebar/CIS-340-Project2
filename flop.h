@@ -1,7 +1,6 @@
 #ifndef __FLOP_H__
 #define __FLOP_H__
 
-int fd, sector;
 unsigned short bytes_per_sector;
 unsigned short num_of_sectors;
 unsigned short fatbytes;
