@@ -24,7 +24,7 @@ int main(void)
 			help();
         } else if (strcmp("fmount", cmd) == 0) {
             scanf("%s", argument);
-            fmount(argument);
+            fmount((const char*) argument);
         } else if (strcmp("fumount", cmd) == 0) {
             fumount(fd);
         } else if (strcmp("structure", cmd) == 0) {
