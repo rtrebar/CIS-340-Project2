@@ -30,7 +30,7 @@ int main(void)
             flag[1] = ' '; //clear flag
         } else if (strcmp(strcmp(str(showsector), cmd) == 0) {
             sscanf(input, "%s %d", cmd, &sector);
-            show_sector(fd, sector);
+            show_sector(sector);
         } else if (strcmp(str(showfat), cmd) == 0) {
             show_fat(fd);
         } else if (strcmp(str(quit), cmd) == 0) {
