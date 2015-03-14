@@ -59,9 +59,20 @@ void traverse(int fd, char flag)
     }
 }
 
-void show_sector(int fd, int sector)
-{
-    printf("show sector %d\n", sector);
+void show_sector(int sec){
+
+	int i;
+	unsigned char hex[512];
+	printf("\nhex dump of sector : %d", sec);
+	printf("\n   0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F\n");
+	lseek(fd,sec*512,SEEK_SET);
+	for(i=0;i<512;i++){
+		read(fd,&hex[i],1);
+		if(i % 16 == 0){
+			printf("\n %x ",i);
+		}
+		printf("%02x ", hex[i]);
+	}
 }
 
 void show_fat(int fd)
