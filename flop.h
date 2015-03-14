@@ -9,7 +9,7 @@ unsigned short cluster;
 char *fat_buffer;
 
 void help(void);
-int fmount(char *);
+void fmount(char *);
 void fumount();
 void structure();
 void traverse(char);
