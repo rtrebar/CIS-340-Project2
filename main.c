@@ -1,6 +1,7 @@
 #include <errno.h>
 #include "flop.h"
 
+
 #define str(x) #x
 
 enum Command { fmount, fumount, structure, traverse, showsector, showfat, quit, help };
