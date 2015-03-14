@@ -38,7 +38,7 @@ void fumount()
 	}
 }
 
-void structure(int fd)
+void structure()
 {
     printf("structure\n");
 }
