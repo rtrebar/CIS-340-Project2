@@ -12,8 +12,7 @@ void help(void)
     printf("\t fmount file_name \t - mount the specified image file\n");
     printf("\t fumount \t - umount the mounted floppy disk. \n");
     printf("\t structure \t - list the structure of the floppy disk image.\n");
-    printf("\t traverse [-l] \t - list the contents in the root directory. Optional -l flag\n");
-    printf("\t gives a long listing of the root directory.\n");
+    printf("\t traverse [-l] \t - list the contents in the root directory. Optional -l flag gives a long listing of the root directory.\n");
     printf("\t showsector [sector_num] \t - show the content of the given sector.\n");
     printf("\t showfat \t - show the content of the FAT table.\n");
     printf("\t quit \t - quit the floppy shell \n");
@@ -44,9 +43,9 @@ void structure(int fd)
     printf("structure\n");
 }
 
-void traverse(char flag)
+void traverse(char* flag)
 {
-    if (flag == 'l') { //long traverse
+    if (strcmp("-l", flag) == 0) { //long traverse
         printf("        *****************************\n");
         printf("        ** FILE ATTRIBUTE NOTATION **\n");
         printf("        **                         **\n");
@@ -77,7 +76,7 @@ void show_sector(int sec){
 
 void show_fat()
 {
-    unsigned short low, high;
+    	unsigned short low, high;
 	char buf[32];
 	size_t nbytes;
 	ssize_t bytes_read;
