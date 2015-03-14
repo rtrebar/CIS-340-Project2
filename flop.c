@@ -65,5 +65,77 @@ void show_sector(int fd, int sector)
 
 void show_fat(int fd)
 {
-    printf("show fat\n");
+    unsigned short low, high;
+	char buf[32];
+	size_t nbytes;
+	ssize_t bytes_read;
+	nbytes = sizeof(buf);
+	off_t offset;
+
+	offset = lseek(fd, SEEK_SET, SEEK_SET);
+	if (offset == -1) {
+		printf("There was an issue reading beginning of floppy.");
+		exit(1);
+	}
+
+	bytes_read = read(fd, buf, nbytes);
+	if (bytes_read != nbytes) {
+		printf("There was an issue reading the floppy.");
+		exit(1);
+	}
+
+	low = ((unsigned short) buf[11]) & 0xff;
+	high = ((unsigned short) buf[12]) & 0xff;
+	bytes_per_sector = low | (high << 8);
+
+	low = ((unsigned short) buf[22]) & 0xff;
+	high = ((unsigned short) buf[23]) & 0xff;
+	num_of_sectors = low | (high << 8);
+
+	fatbytes = bytes_per_sector * num_of_sectors;
+
+	fat_buffer = (char *) malloc(fatbytes);
+	offset = lseek(fd, bytes_per_sector, 0);
+	if (offset != bytes_per_sector) {
+		printf("There was an issue setting the cursor");
+		exit(1);
+	}
+
+	if ((bytes_read = read(fd, fat_buffer, fatbytes)) != fatbytes) {
+		printf("There was an issue reading the sector");
+		exit(1);
+	}
+
+	// set up horizontal entry hex values
+	printf("\n");
+	for (int i=0;i<16;i++) {
+		printf("\t %x", i);
+	}
+
+	printf("\n \t \t"); // first two entries are reserved
+	for (int x = 2; x < fatbytes*2/3; x++) {
+		unsigned short low, high;
+		unsigned short temp = (unsigned short) x;
+		// print the vertical hex entry values
+		if ((x%16) == 0) {
+			printf("\n %x", x);
+		}
+
+		if (temp%2) {
+				low = (((unsigned short) fat_buffer[(3*temp - 1)/2])>>4) & 0x000f;
+				high = (((unsigned short) fat_buffer[(3*temp + 1)/2])<<4) & 0x0ff0;
+		}else {
+				low = ((unsigned short) fat_buffer[3*temp/2]) & 0x00ff;
+				high = (((unsigned short) fat_buffer[(3*temp + 2)/2])<<8) & 0x0f00;
+		}
+		cluster = low | high;
+
+		if (cluster)
+			printf("\t %x", cluster);
+		else
+			printf("\t FREE");
+	}
+
+	printf("\n");
+	free(fat_buffer);
 }
