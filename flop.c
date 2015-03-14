@@ -63,15 +63,22 @@ void show_sector(int sec){
 	int i;
 	unsigned char hex[512];
 	printf("\nhex dump of sector : %d", sec);
-	printf("\n   0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F\n");
+	
+	// set up horizontal entry hex values
+	printf("\n");
+	for (int i=0;i<16;i++) {
+		printf("\t %x", i);
+	}
+	
 	lseek(fd,sec*512,SEEK_SET);
 	for(i=0;i<512;i++){
 		read(fd,&hex[i],1);
 		if(i % 16 == 0){
 			printf("\n %x ",i);
 		}
-		printf("%02x ", hex[i]);
+		printf("\t %x ", hex[i]);
 	}
+	printf("\n");
 }
 
 void show_fat()
