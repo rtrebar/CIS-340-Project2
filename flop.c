@@ -38,9 +38,41 @@ void fumount()
 	}
 }
 
-void structure()
-{
-    printf("structure\n");
+void structure(){
+
+   unsigned short bytes_per_sector;
+   unsigned char sectors_per_cluster;
+   unsigned char num_of_fats;
+   unsigned short max_root_dir;
+   unsigned short total_sectors;
+   unsigned short sectors_per_fat;
+   int dir_entries_per_sector = 16;
+   int count = 0;
+   printf("Structure of the floppy image: \n"); 
+
+   lseek(fd,11,SEEK_SET); //skip ignored bytes
+   read(fd, &bytes_per_sector, 2);
+   read(fd, &sectors_per_cluster, 1);
+   lseek(fd,2,SEEK_CUR); //skip reserved sectors
+   read(fd, &num_of_fats, 1);
+   read(fd, &max_root_dir, 2);
+   read(fd, &total_sectors, 2);
+   lseek(fd,1,SEEK_CUR); //skip ignored byte
+   read(fd, &sectors_per_fat,2);
+
+   printf("\nnumber of fats: \t%d", num_of_fats);
+   printf("\nsectors used by fat: \t%d", sectors_per_fat);
+   printf("\nsectors per cluster: \t%d", sectors_per_cluster);
+   printf("\nnumber of ROOT Entries: \t%d", max_root_dir);
+   printf("\nnumber of bytes per sector: \t%d", bytes_per_sector);
+   printf("\n---Sector #---     ---Sector Types---");
+   printf("\n       %d                  BOOT        ", count);
+   for(count = 0;count<num_of_fats;count++){
+   	printf("\n    %02d -- %02d              FAT%d", (count * sectors_per_fat) + 1,(1 + count)*sectors_per_fat,count + 1);
+   }
+   printf("\n    %d -- %d              ROOT DIRECTORY",sectors_per_fat*num_of_fats+1, max_root_dir/dir_entries_per_sector + num_of_fats*sectors_per_fat);
+
+
 }
 
 void traverse(char* flag)
