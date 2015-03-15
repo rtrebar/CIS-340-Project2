@@ -14,6 +14,6 @@ void fumount();
 void structure();
 void traverse(char*);
 void show_sector();
-void show_fat();
+int show_fat();
 
 #endif
