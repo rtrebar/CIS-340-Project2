@@ -111,7 +111,7 @@ void show_sector(int sec){
 	printf("\n");
 }
 
-void show_fat()
+int show_fat()
 {
     	unsigned short low, high;
 	char buf[32];
@@ -186,4 +186,5 @@ void show_fat()
 
 	printf("\n");
 	free(fat_buffer);
+	return 0;
 }
