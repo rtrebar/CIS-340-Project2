@@ -187,3 +187,60 @@ void show_fat()
 	printf("\n");
 	free(fat_buffer);
 }
+
+void output_redirection(int new_fd, char redir_symbol[1], char* comd[], void (*func)()) {
+	if ((new_fd = open(comd[2], O_WRONLY | O_CREAT | O_TRUNC, 0644)) < 0) {
+		printf("error creating redirect file\n");
+		exit(1);
+	}
+	if (fork() == 0) {
+		/* Child process: stdout redirection */
+		if (strchr(redir_symbol, '>') != NULL) {
+			close(1);
+			dup(new_fd);
+			close(new_fd);
+		}
+		/* Child process: exec other program */
+		func();
+		exit(0);
+	}
+	close(new_fd);
+}
+
+void output_redirection2(int new_fd, char redir_symbol[1], char* comd[], void (*func)(char*)) {
+	if ((new_fd = open(comd[2], O_WRONLY | O_CREAT | O_TRUNC, 0644)) < 0) {
+		printf("error creating redirect file\n");
+		exit(1);
+	}
+	if (fork() == 0) {
+		/* Child process: stdout redirection */
+		if (strchr(redir_symbol, '>') != NULL) {
+			close(1);
+			dup(new_fd);
+			close(new_fd);
+		}
+		/* Child process: exec other program */
+		func(comd[1]);
+		exit(0);
+	}
+	close(new_fd);
+}
+
+void output_redirection3(int new_fd, char redir_symbol[1], char* comd[], void (*func)(int)) {
+	if ((new_fd = open(comd[2], O_WRONLY | O_CREAT | O_TRUNC, 0644)) < 0) {
+		printf("error creating redirect file\n");
+		exit(1);
+	}
+	if (fork() == 0) {
+		/* Child process: stdout redirection */
+		if (strchr(redir_symbol, '>') != NULL) {
+			close(1);
+			dup(new_fd);
+			close(new_fd);
+		}
+		/* Child process: exec other program */
+		func(atoi(comd[1]));
+		exit(0);
+	}
+	close(new_fd);
+}
