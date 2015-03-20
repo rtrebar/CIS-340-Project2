@@ -17,7 +17,7 @@ int main(void)
         char input[50], command[50], arg[50], redir_symbol[1], redir_filename[50];
 
         fgets(input, 50, stdin); //read line
-        sscanf(input, "%s", command); //separate out first arg
+        sscanf(input, "%s", command); //separate out first arg, consider using strtok() instead of sscanf()
         if (strcmp("quit", command) == 0) {
             printf("\n Exiting the floppy disk shell... \n");
             return EXIT_SUCCESS;
