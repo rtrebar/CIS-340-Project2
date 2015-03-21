@@ -11,7 +11,7 @@
 
 int main(void)
 {
-    int new_fd = -1;
+    int new_fd = 0;
     while (1) {
         printf("flop: ");
         char input[50], command[50], arg[50], redir_symbol[1], redir_filename[50];
