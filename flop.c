@@ -234,8 +234,6 @@ void print_directories(unsigned short cluster, char *directory,
 void traverse(char* flag) {
 	unsigned short low, high, fat_tables, values, fat_sectors, sectors, rootbytes, filebytes;
 	char buf[32], directory[256], file[9], extension[4];
-	size_t number_of_bytes;
-	number_of_bytes = sizeof(buf);
 
 	if ((lseek(fd, SEEK_SET, SEEK_SET)) != 0) {
 		printf("There was a problem setting pointer to beginning of file\n");
