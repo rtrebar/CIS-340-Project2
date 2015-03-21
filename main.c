@@ -1,17 +1,17 @@
+#include <stdio.h>
 #include <errno.h>
 #include <fcntl.h>
 #include <string.h>
 #include <stdlib.h>
-#include <stdio.h>
 #include <errno.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <sys/wait.h>
 #include "flop.h"
 
 int main(void)
 {
-    int new_fd;
-    char list_arg = "-l";
+    int new_fd = -1;
     while (1) {
         printf("flop: ");
         char input[50], command[50], arg[50], redir_symbol[1], redir_filename[50];
@@ -56,41 +56,44 @@ int main(void)
                 }
             }
         } else if (strcmp("traverse", command) == 0) {
-            if (strchr(input, '>') == NULL) {
-                if (strchr(input, list_arg) == NULL) {
-                    traverse(command);
-                } else if (strchr(input, list_arg) != NULL) {
-                    sscanf(input, "%s %s", command, arg);
-                    traverse(arg);
-                } else {
-                    printf("Error invalid argument, please try again! \n");
-                }
-            } else {
-                if (strchr(input, list_arg) == NULL) {
-                    sscanf(input, "%s %s %s", command, redir_symbol, redir_filename);
-                    char* comd[] = {command, redir_symbol, redir_filename};
-                    if (strchr(redir_symbol, '>') != NULL) {
-                        void (*func)(char*);
-                        func = &traverse;
-                        output_redirection2(new_fd, redir_symbol, comd, func);
-                    } else {
-                        printf("invalid commmand, please try again.\n");
-                    }
-                } else if (strchr(input, list_arg) != NULL) {
-                    sscanf(input, "%s %s %s %s", command, arg, redir_symbol, redir_filename);
-                    char* comd[] = {command, arg, redir_filename};
-                    if (strchr(redir_symbol, '>') != NULL) {
-                        void (*func)(char*);
-                        func = &traverse;
-                        output_redirection2(new_fd, redir_symbol, comd, func);
-                    } else {
-                        printf("invalid commmand, please try again.\n");
-                    }
-                } else {
-                    printf("Error invalid argument, please try again! \n");
-                }
-            }
-        } else if (strcmp("showsector", command) == 0) {
+			if (strchr(input, '>') == NULL) {
+				if (strstr(input, "-l") == NULL) {
+					traverse(command);
+				}
+				else if (strstr(input, "-l") != NULL) {
+					sscanf(input, "%s %s", command, arg);
+					traverse(arg);
+				}
+				else
+					printf("Error invalid argument, please try again! \n");
+			}
+			else {
+				if (strstr(input, "-l") == NULL) {
+					sscanf(input, "%s %s %s", command, redir_symbol, redir_filename);
+					char* comd[] = {command, redir_symbol, redir_filename};
+					if (strchr(redir_symbol, '>') != NULL) {
+						void (*func)(char*);
+						func = &traverse;
+						output_redirection2(new_fd, redir_symbol, comd, func);
+					}
+					else
+						printf("invalid commmand, please try again.\n");
+				}
+				else if (strstr(input, "-l") != NULL) {
+					sscanf(input, "%s %s %s %s", command, arg, redir_symbol, redir_filename);
+					char* comd[] = {command, arg, redir_filename};
+					if (strchr(redir_symbol, '>') != NULL) {
+						void (*func)(char*);
+						func = &traverse;
+						output_redirection2(new_fd, redir_symbol, comd, func);
+					}
+					else
+						printf("invalid commmand, please try again.\n");
+				}
+				else
+					printf("Error invalid argument, please try again! \n");
+			}
+		} else if (strcmp("showsector", command) == 0) {
             if (strchr(input, '>') == NULL) {
                 sscanf(input, "%s %s", command, arg);
                 show_sector(atoi(arg));
