@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -std=gnu99 -Wall -g -I.
+CFLAGS = -std=gnu99 -Wall -Wimplicit-function-declaration -Wno-int-to-pointer-cast -Wincompatible-pointer-types -Wimplicit-function-declaration -g -I.
 DEPS = flop.h
 OBJ = main.c flop.c
 
