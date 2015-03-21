@@ -7,6 +7,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <ctype.h>
 #include "flop.h"
 
 void help(void)
