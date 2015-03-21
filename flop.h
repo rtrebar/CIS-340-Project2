@@ -15,8 +15,11 @@ void structure();
 void traverse(char*);
 void show_sector();
 void show_fat();
-void output_redirection(int, char, char*, void);
-void output_redirection2(int, char, char*, void);
-void output_redirection3(int, char, char*, void);
+void output_redirection(int, char*, char*, void (*func)());
+void output_redirection2(int, char*, char*, void (*func)(char*));
+void output_redirection3(int, char*, char*, void (*func)(int));
+void trim(char*);
+void print_files(char*, char*, char*);
+void print_directories(unsigned short, char*, unsigned short, unsigned short, unsigned short, char*);
 
 #endif
