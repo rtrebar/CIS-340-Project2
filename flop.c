@@ -95,7 +95,8 @@ void trim(char *str)
     str[i - begin] = '\0'; // Null terminate string.
 }
 
-void print_files(char *buf, char *directory, char *flag) {
+void print_files(char *buf, char *directory, char *flag)
+{
     char filename[256], file[9], extension[4];
     unsigned short date, time;
     unsigned short month, day,  year, hour, minute, second;
@@ -197,9 +198,7 @@ void print_directories(unsigned short cluster, char *directory, unsigned short f
         }
 
         // exclude free space and removed files
-        if (isprint((unsigned short) (buf[0] & 0xff))
-                && (unsigned short) (buf[0] & 0xff) != 0xe5
-                && (unsigned short) (buf[11]&0x08) != 0x08) {
+        if (isprint((unsigned short) (buf[0] & 0xff)) && (unsigned short) (buf[0] & 0xff) != 0xe5 && (unsigned short) (buf[11]&0x08) != 0x08) {
             print_files(buf, directory, flag);
             if (buf[11]&0x10) {
                 new_cluster = (((unsigned short) buf[26]) & 0xff) | (((unsigned short) buf[27]) & 0x0f)<<8;
