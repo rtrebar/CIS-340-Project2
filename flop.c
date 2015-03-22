@@ -103,7 +103,6 @@ void print_files(char *buf, char *directory, char *flag)
     char attributes[] = "----";
     unsigned filesize;
 
-    //dir_cluster = (((unsigned short) buf[26]) & 0xff) | (((unsigned short) buf[27]) & 0x0f)<<8;
     strncpy(file, buf, 8);
     strncpy(extension, buf+8, 3);
     file[8] = '\0';
