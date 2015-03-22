@@ -149,7 +149,8 @@ void print_files(char *buf, char *directory, char *flag) {
     }
 }
 
-void print_directories(unsigned short cluster, char *directory, unsigned short filebytes, unsigned short num_of_sectors, unsigned short bytes_per_sector, char *flag) {
+void print_directories(unsigned short cluster, char *directory, unsigned short filebytes, unsigned short num_of_sectors, unsigned short bytes_per_sector, char *flag)
+{
     char buf[32], dirname[9], adir[256], ext[4];
     unsigned short new_cluster, low, high;
     unsigned ptr;
