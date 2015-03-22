@@ -62,8 +62,9 @@ int main(void)
                 } else if (strstr(input, "-l") != NULL) {
                     sscanf(input, "%s %s", command, arg);
                     traverse(arg);
-                } else
+                } else {
                     printf("Error invalid argument, please try again! \n");
+                }
             } else {
                 if (strstr(input, "-l") == NULL) {
                     sscanf(input, "%s %s %s", command, redir_symbol, redir_filename);
