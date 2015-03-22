@@ -4,6 +4,9 @@ Description:
     showsector, showfat, and quit.
 
 Member Contributions:
+Glen Fannin     33%
+Derek Morey     33%
+Robert Trebar   33%
 
 Compilation instructions:
     1. type make
@@ -13,7 +16,7 @@ Compilation instructions:
     showsector, and showfat to access data on the floppy disk.
     5. to get help with the commands, type help on the command line.
     6. to unmount the image file before quitting, type fumount.
-    6. to exit the program, type quit in the command line.
+    7. to exit the program, type quit in the command line.
     
 Sample Run:
 $ ./main
@@ -332,11 +335,6 @@ flop: showfat
  bd0     FREE    FREE    FREE    FREE    FREE    FREE    FREE    FREE    FREE    FREE    FREE  FREE     FREE    FREE    FREE    FREE
  be0     FREE    FREE    FREE    FREE    FREE    FREE    FREE    FREE    FREE    FREE    FREE  FREE     FREE    FREE    FREE    FREE
  bf0     FREE    FREE    FREE    FREE    FREE    FREE    FREE    FREE    FREE    FREE    FREE  FREE     FREE    FREE    FREE    FREE
-flop: traverse > shorttraversefile
-flop: traverse -l > longtraversefile
-flop: showsector 10 > showsectorfile
-flop: showfat > showfatfile
-flop: structure > structurefile
 flop: fumount
 The floppy was unmounted successfully.
 flop: quit
@@ -345,3 +343,4 @@ flop: quit
 
 
 Bugs:
+none
