@@ -76,8 +76,7 @@ int main(void)
                     } else {
                         printf("invalid commmand, please try again.\n");
                     }
-                }
-                else if (strstr(input, "-l") != NULL) {
+                } else if (strstr(input, "-l") != NULL) {
                     sscanf(input, "%s %s %s %s", command, arg, redir_symbol, redir_filename);
                     char* comd[] = {command, arg, redir_filename};
                     if (strchr(redir_symbol, '>') != NULL) {
