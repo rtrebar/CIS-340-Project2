@@ -334,8 +334,8 @@ void show_sector(int sec)
     printf("\n");
     printf("\t 0 \t 1 \t 2 \t 3 \t 4 \t 5 \t 6 \t 7 \t 8 \t 9 \t A \t B \t C \t D \t E \t F");
 
-    lseek(fd,sec*512,SEEK_SET);
-    for(i=0;i<512;i++) {
+    lseek(fd,sec*bytes_per_sector,SEEK_SET);
+    for(i=0;i<bytes_per_sector;i++) {
         read(fd,&hex[i],1);
         if(i % 16 == 0){
             printf("\n %x ",i);
